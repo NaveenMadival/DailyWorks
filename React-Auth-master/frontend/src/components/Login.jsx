@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
-      console.log(response.data); // Handle the response as needed
+      console.log(response); // Handle the response as needed
 
       // Store the JWT token in local storage
       localStorage.setItem('token', response.data.token);

@@ -68,9 +68,26 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '1h' });
     console.log('JWT Token:', token); // Debugging: Log JWT token
 
-    res.status(200).json({ message: 'Login successful', token });
-  } catch (error) {
+    res.status(200).json({ message: 'Login successful', token, user });
+
+  } 
+  catch (error) {
     console.error('Login Error:', error); // Debugging: Log login error
     res.status(500).json({ error: 'Login failed', details: error.message });
   }
 };
+
+export const getUser = async (req, res) => {
+  const email = req.user.email;
+  try {
+    const user = await getUserByEmail(email);
+    if (user) {
+      return res.json(user);  // Return the user data as JSON response
+    } else {
+      return res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error fetching user data' });
+  }
+}; 

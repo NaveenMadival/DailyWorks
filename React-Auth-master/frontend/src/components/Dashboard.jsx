@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import Sidebar from './Sidebar';
+import axios from 'axios';
 import {
   DashboardContainer,
   WelcomeMessage,
@@ -37,7 +38,10 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     navigate('/login');
+    localStorage.removeItem('token');
+    setToken(null);
   };
+
 
   const user = {
     fullName: "Naveen Madival",
